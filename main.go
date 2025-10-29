@@ -3,26 +3,21 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )
 
 func main() {
-	fmt.Fprintf(os.Stderr, "MCP Server starting...\n")
-
 	// Create a new MCP server
 	s := server.NewMCPServer(
-		"Demo 🚀",
+		"Hello World Server",
 		"1.0.0",
-		server.WithToolCapabilities(false),
+		server.WithToolCapabilities(true),
 	)
 
-	fmt.Fprintf(os.Stderr, "Server created, adding tools...\n")
-
-	// Add tool
-	tool := mcp.NewTool("hello-world",
+	// Define a simple tool
+	tool := mcp.NewTool("hello_world",
 		mcp.WithDescription("Say hello to someone"),
 		mcp.WithString("name",
 			mcp.Required(),
@@ -33,22 +28,33 @@ func main() {
 	// Add tool handler
 	s.AddTool(tool, helloHandler)
 
-	fmt.Fprintf(os.Stderr, "Starting stdio server...\n")
-
 	// Start the stdio server
 	if err := server.ServeStdio(s); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "Server error: %v\n", err)
-		os.Exit(1)
+		fmt.Printf("Server error: %v\n", err)
 	}
-
-	fmt.Fprintf(os.Stderr, "Server stopped normally\n")
 }
 
-func helloHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	name, err := request.RequireString("name")
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
+func helloHandler(_ context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	arguments := request.GetArguments()
+	name, ok := arguments["name"].(string)
+	if !ok {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				mcp.TextContent{
+					Type: "text",
+					Text: "Error: name parameter is required and must be a string",
+				},
+			},
+			IsError: true,
+		}, nil
 	}
 
-	return mcp.NewToolResultText(fmt.Sprintf("Hello, %s!", name)), nil
+	return &mcp.CallToolResult{
+		Content: []mcp.Content{
+			mcp.TextContent{
+				Type: "text",
+				Text: fmt.Sprintf("Hello, %s! 👋", name),
+			},
+		},
+	}, nil
 }
