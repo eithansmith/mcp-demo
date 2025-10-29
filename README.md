@@ -1,6 +1,23 @@
 ## MCP Demo
 A simple MCP server that demonstrates how to use the [mcp-go](https://github.com/mark3labs/mcp-go) library.
-Please visit the [mcp-go quickstart](https://mcp-go.dev/quick-start) for more information.
+
+## Setup Instructions
+1.  Pull this repository (using git clone or download zip)
+2.  Install [Go](https://golang.org/dl/) and Claude Desktop (https://www.claude-systems.com/products/claude-desktop)
+3.  Run `go run main.go` (or `go build main.go && ./main` to ensure the binary is built)
+4.  Configure your server by editing Claude's config file:
+    - Windows: %APPDATA%\Claude\claude_desktop_config.json
+    - macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
+5.  Add the following to that JSON file. Replace the username_here to match your username.  Note that these instructions link to a batch file for Windows users. If you are on a different OS, please use the appropriate substitution.
+    ```json
+    {
+        "mcpServers": {
+           "hello-world": {
+              "command": "C:/Users/username_here/mcp-demo/run-mcp.bat"
+           }
+        }
+    } 
+6.  Start Claude Desktop. Test your tool by asking Claude: "Use the hello_world tool to greet someone"
 
 ## How It Works
 
@@ -17,6 +34,8 @@ To extend this demo:
 1. Add new tools using `mcp.NewTool()`
 2. Register tool handlers with `s.AddTool()`
 3. Implement handler functions that return `*mcp.CallToolResult`
+
+Please visit the [mcp-go quickstart](https://mcp-go.dev/quick-start) for further information on how to use the mcp-go library.
 
 ## License
 
