@@ -3,9 +3,9 @@ A simple MCP server that demonstrates how to use the [mcp-go](https://github.com
 
 ## Setup Instructions
 1.  Pull this repository (using git clone or download zip)
-2.  Install [Go](https://golang.org/dl/) and Claude Desktop (https://www.claude-systems.com/products/claude-desktop)
+2.  Install [Go](https://golang.org/dl/) and [Claude Desktop](https://www.claude.com/download)
 3.  Run `go run main.go` (or `go build main.go && ./main` to ensure the binary is built)
-4.  Configure your server by editing Claude's config file:
+4.  Configure your server by creating a Claude Desktop config file:
     - Windows: %APPDATA%\Claude\claude_desktop_config.json
     - macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
 5.  Add the following to that JSON file. Replace the username_here to match your username.  Note that these instructions link to a batch file for Windows users. If you are on a different OS, please use the appropriate substitution.
