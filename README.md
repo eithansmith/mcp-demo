@@ -12,7 +12,7 @@ A simple MCP server that demonstrates how to use the [mcp-go](https://github.com
     ```json
     {
         "mcpServers": {
-           "hello-world": {
+           "demoServer": {
               "command": "C:/Users/username_here/mcp-demo/run-mcp.bat"
            }
         }
