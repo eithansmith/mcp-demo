@@ -1,6 +1,11 @@
 # JetBrains IDE files
 .idea/
 
+# Claude Code files
+.claude/
+.claude.json
+.claude.json.backup
+
 # VS Code files
 .vscode/
 *.code-workspace
